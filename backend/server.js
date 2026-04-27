@@ -5,7 +5,11 @@ const path = require("path");
 const multer = require("multer");
 require("dotenv").config();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://messmate-lsdk.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 const authRoutes = require("./routes/userRoutes"); // login/register
 const foodRoutes = require("./routes/foodRoutes");
