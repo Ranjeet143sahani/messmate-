@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
+import API_URL from "../api";
 import "./Profile.css";
-
-const API_URL = import.meta.env.VITE_API_URL;
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -29,8 +28,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const baseURL = API_URL || "http://localhost:5000";
-        const res = await fetch(`${baseURL}/api/users/profile`, {
+        const res = await fetch(`${API_URL}/api/users/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -67,8 +65,7 @@ function Profile() {
       setLoading(true);
       setError("");
 
-      const baseURL = API_URL || "http://localhost:5000";
-      const res = await fetch(`${baseURL}/api/users/profile`, {
+      const res = await fetch(`${API_URL}/api/users/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "../api";
 
 function PaymentModal({ isOpen, onClose, orderDetails, onPaymentSuccess, onPaymentFailure }) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -16,7 +17,7 @@ function PaymentModal({ isOpen, onClose, orderDetails, onPaymentSuccess, onPayme
 
     try {
       // Step 1: Create Razorpay order on backend
-      const orderResponse = await fetch("http://localhost:5000/api/payment/create-order", {
+      const orderResponse = await fetch(`${API_URL}/api/payment/create-order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +48,7 @@ function PaymentModal({ isOpen, onClose, orderDetails, onPaymentSuccess, onPayme
           order_id: orderData.razorpayOrderId,
           handler: async function (response) {
             // Step 3: Verify payment on backend
-            const verifyResponse = await fetch("http://localhost:5000/api/payment/verify-payment", {
+            const verifyResponse = await fetch(`${API_URL}/api/payment/verify-payment`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -106,7 +107,7 @@ function PaymentModal({ isOpen, onClose, orderDetails, onPaymentSuccess, onPayme
     setIsProcessing(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/payment/cod", {
+      const response = await fetch(`${API_URL}/api/payment/cod`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../api";
 
 function Register() {
   const [name, setName] = useState("");
@@ -62,7 +63,7 @@ function Register() {
       }
 
       const endpoint = userType === "vendor" ? "/register/vendor" : "/register";
-      const res = await fetch(`http://localhost:5000/api/users${endpoint}`, {
+      const res = await fetch(`${API_URL}/api/users${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

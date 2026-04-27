@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API_URL from "../api";
 
 function VendorOrders() {
   const [orders, setOrders] = useState([]);
@@ -20,7 +21,7 @@ function VendorOrders() {
         return;
       }
 
-      const res = await fetch("http://localhost:5000/api/orders/vendor", {
+      const res = await fetch(`${API_URL}/api/orders/vendor`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -50,7 +51,7 @@ function VendorOrders() {
     setUpdatingOrder(orderId);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/orders/${orderId}/accept`, {
+      const res = await fetch(`${API_URL}/api/orders/${orderId}/accept`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -73,7 +74,7 @@ function VendorOrders() {
     setUpdatingOrder(orderId);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/orders/${orderId}/ready`, {
+      const res = await fetch(`${API_URL}/api/orders/${orderId}/ready`, {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`

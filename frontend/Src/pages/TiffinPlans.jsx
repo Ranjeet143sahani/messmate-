@@ -1,4 +1,5 @@
  import { useState, useEffect } from "react";
+import API_URL from "../api";
 
 function TiffinPlans({ addToCart }) {
   const [plans, setPlans] = useState([]);
@@ -55,7 +56,7 @@ function TiffinPlans({ addToCart }) {
         ? `?campus=${encodeURIComponent(selectedCampus)}` 
         : "";
       
-      const res = await fetch(`http://localhost:5000/api/tiffin${campusParam}`);
+      const res = await fetch(`${API_URL}/api/tiffin${campusParam}`);
       const data = await res.json();
       
       if (res.ok) {
@@ -71,7 +72,7 @@ function TiffinPlans({ addToCart }) {
   const fetchVendorPlans = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/tiffin/vendor", {
+      const res = await fetch(`${API_URL}/api/tiffin/vendor`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -96,7 +97,7 @@ function TiffinPlans({ addToCart }) {
       const token = localStorage.getItem("token");
       const menuArray = newPlan.menu.split(",").map(item => item.trim()).filter(item => item);
       
-      const res = await fetch("http://localhost:5000/api/tiffin", {
+      const res = await fetch(`${API_URL}/api/tiffin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -150,7 +151,7 @@ function TiffinPlans({ addToCart }) {
     
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/tiffin/${planId}`, {
+      const res = await fetch(`${API_URL}/api/tiffin/${planId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

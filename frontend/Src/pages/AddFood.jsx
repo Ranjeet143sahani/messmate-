@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../api";
 
 function AddFood() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function AddFood() {
   const fetchVendorFoods = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/foods/vendor", {
+      const res = await fetch(`${API_URL}/api/foods/vendor`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -53,7 +54,7 @@ function AddFood() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/foods", {
+      const res = await fetch(`${API_URL}/api/foods`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +93,7 @@ function AddFood() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/foods/${foodId}`, {
+      const res = await fetch(`${API_URL}/api/foods/${foodId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`

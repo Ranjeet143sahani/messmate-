@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import API_URL from "../api";
 
 function FoodList({ addToCart, selectedCategory = "All", searchQuery = "" }) {
   const [foods, setFoods] = useState([]);
@@ -13,7 +14,7 @@ function FoodList({ addToCart, selectedCategory = "All", searchQuery = "" }) {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch("http://localhost:5000/api/foods");
+        const res = await fetch(`${API_URL}/api/foods`);
         if (!res.ok) {
           throw new Error(`API error: ${res.status}`);
         }

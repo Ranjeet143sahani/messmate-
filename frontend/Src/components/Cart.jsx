@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "../api";
 import PaymentModal from "./PaymentModal";
 
 function Cart({ cart, removeFromCart, clearCart }) {
@@ -15,7 +16,7 @@ function Cart({ cart, removeFromCart, clearCart }) {
     setIsProcessing(true);
     try {
       const userId = localStorage.getItem("userId") || "user123";
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

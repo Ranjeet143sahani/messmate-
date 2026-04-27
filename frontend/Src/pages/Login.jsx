@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../api";
 
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ function Login({ setIsLoggedIn }) {
 
     try {
       const endpoint = userType === "vendor" ? "/login/vendor" : "/login";
-      const res = await fetch(`http://localhost:5000/api/users${endpoint}`, {
+      const res = await fetch(`${API_URL}/api/users${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
