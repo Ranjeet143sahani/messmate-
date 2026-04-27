@@ -5,13 +5,18 @@ const path = require("path");
 const multer = require("multer");
 require("dotenv").config();
 
-app.use(cors());
+const app = express();  // ✅ MUST be before app.use
 
-const authRoutes = require("./routes/userRoutes"); // login/register
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+const authRoutes = require("./routes/userRoutes");
 const foodRoutes = require("./routes/foodRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const tiffinRoutes = require("./routes/tiffinRoutes");
 
+// Multer config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -20,17 +25,11 @@ const storage = multer.diskStorage({
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
     cb(null, uniqueSuffix + path.extname(file.originalname))
   }
-})
+});
 
 const upload = multer({ storage: storage });
 
-const app = express();
-
-// Middlewares
-app.use(cors());
-app.use(express.json());
-
-// Serve uploaded images
+// Static
 app.use('/uploads', express.static('uploads'));
 
 // Routes
@@ -41,18 +40,18 @@ app.use("/api/tiffin", tiffinRoutes);
 app.use("/api/payment", require("./routes/paymentRoutes"));
 app.use("/api/dummy-payment", require("./routes/dummyPaymentRoutes"));
 
-// Test route (IMPORTANT)
+// Test route
 app.get("/", (req, res) => {
   res.json({ message: "Backend is running" });
 });
 
 // MongoDB
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected at URI: " + process.env.MONGO_URI))
+  .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
+// Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
