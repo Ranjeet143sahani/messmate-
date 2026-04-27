@@ -9,7 +9,6 @@ const app = express();  // ✅ MUST be before app.use
 
 // Middlewares
 app.use(cors());
-app.use(express.json());
 
 const authRoutes = require("./routes/userRoutes");
 const foodRoutes = require("./routes/foodRoutes");
